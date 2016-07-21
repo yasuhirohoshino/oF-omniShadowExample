@@ -10,7 +10,7 @@ void ofApp::setup(){
     depth.setGeometryOutputCount(18);
     depth.load("shaders/default.vert", "shaders/default.frag", "shaders/default.geom");
     depth.begin();
-    depth.setUniform1f("far_plane", farPlane);
+    depth.setUniform1f("farPlane", farPlane);
     depth.end();
     
     render.load("shaders/render");

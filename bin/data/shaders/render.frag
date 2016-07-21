@@ -6,17 +6,11 @@ uniform mat4 modelViewMatrix;
 uniform mat4 modelViewProjectionMatrix;
 
 uniform samplerCube depthMap;
+uniform float farPlane;
+uniform vec3 lightPos;
 
 in vec3 normalVarying;
 in vec4 positionVarying;
-
-vec3 v_normalVarying;
-
-uniform float farPlane;
-
-uniform vec3 lightPos;
-
-in mat4 normalMatrix;
 
 // based on http://learnopengl.com/#!Advanced-Lighting/Shadows/Point-Shadows
 float ShadowCalculation(vec3 fragPos)
@@ -33,7 +27,6 @@ float ShadowCalculation(vec3 fragPos)
 }
 
 void main (void) {
-    v_normalVarying = normalize(mat3(normalMatrix) * normalVarying);
     float shadow = ShadowCalculation(positionVarying.xyz);
     float lambert = max(dot(normalize(vec3(vec4(lightPos, 1.0) - positionVarying)), normalVarying), 0.0);
     fragColor = vec4(vec3(lambert) * (1.0 - shadow), 1.0);
